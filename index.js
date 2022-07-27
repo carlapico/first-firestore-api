@@ -2,7 +2,7 @@
     // 1- install library
 
 import express from 'express'
-import { createCar, getAllCars } from './src/cars.js'
+import { createCar, getAllCars, updateCar } from './src/cars.js'
 
 const app = express() // express is an http server and we are intializing it here // 
 const PORT = 3002 // random port number 
@@ -12,6 +12,7 @@ app.use(express.json()) // we are telling express to respond in spanish
 //setting up a route here // we are trying to get all data 
 app.get('/cars', getAllCars) // we imported the function getAllCars from the src file 
 app.post('/cars', createCar)
+app.patch('/cars/:id', updateCar)  // colon tell it to have something to look for and let it run 
 
 app.listen(PORT, () => {
     console.log(`Listening on http://localhost:${PORT} ...`) // we do this so that we know that our program is not frozen it is now listening // you do this in backticks because it has a template literal ${} 
@@ -19,3 +20,4 @@ app.listen(PORT, () => {
 
 // we installed nodemon (npm i -g nodemon) // now the port can see the live updated 
 
+//homework create and update car that will allow you to update an existing car // you will have to do this by specifically getting the id

@@ -7,7 +7,7 @@ export function getAllCars (req,res) {
     db.collection('cars').get() // now this returns a promise 
         .then (collection => {
             // reshape collection to an array 
-            const cars = collection.docs.map(doc => doc.data()) // this will return it in an arra
+            const cars = collection.docs.map(doc => doc.data()) // this will return it in an array
             // send array to response
             res.send(cars) 
         })
@@ -34,4 +34,23 @@ export function createCar (req, res) {
 function handleError (err,res) {
     console.log(err)
     res.status(500).send(err) //fairly typical on how we handle an err in firestore
+}
+
+export function updateCar (req,res) {
+    const{ id } = req.params
+    //connect to db 
+    const db= dbConnect()
+    //update doc(id) in cars collections using req.body 
+    let patchCar = req.body
+    db.collection('cars').doc(id).update(patchCar)
+        .then(doc => {
+            res.status(200).send({
+                success:true,
+                id: doc.id 
+            })
+        })
+        .catch((err) => handleError(err,req))
+    //connect to database
+    //
+
 }
